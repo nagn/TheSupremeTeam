@@ -1,16 +1,21 @@
-/**
- *
- *
- *
- */
-public class User {
+package com.cs2340.smores.m4;
 
-    private String realName;
-    private String username;
+/**
+ * User object for the project.
+ *
+ * @author Samuel Mohr
+ * @version 1.0
+ */
+class User {
+
+    private final String realName;
+    private final String username;
     private String password;
+    private int id;
     private boolean isWorker;
     private boolean isManager;
     private boolean isAdmin;
+    private static int count = 0;
 
     /**
      * Constructor for a User.
@@ -18,10 +23,11 @@ public class User {
      * @param username The username of the User.
      * @param password The password of the User.
      */
-    public User(String realName, String username, String password) {
+    User(String realName, String username, String password) {
         this.realName = realName;
         this.username = username;
         this.password = password;
+        this.id = ++User.count;
         this.isWorker = false;
         this.isManager = false;
         this.isAdmin = false;
@@ -33,21 +39,8 @@ public class User {
      * @param password The matching proposed password.
      * @return Whether the login info is correct.
      */
-    public boolean unlock(String username, String password) {
+    boolean unlock(String username, String password) {
         return ((this.username.equals(username)) && (this.password.equals(password)));
-    }
-
-    /**
-     * Setter for the User's name. Requires the current password to change it.
-     * @param username The new name of the User.
-     * @param password The current password of the User.
-     */
-    public boolean setUsername(String username, String password) {
-        if (this.password.equals(password)) {
-            this.username = username;
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -55,14 +48,49 @@ public class User {
      * @param oldPassword The current password of the User.
      * @param newPassword The new password for the User to use.
      */
-    public boolean setPassword(String oldPassword, String newPassword) {
+    boolean setPassword(String oldPassword, String newPassword) {
         if (this.password.equals(oldPassword)) {
             this.password = newPassword;
+            return true;
         }
+        return false;
     }
 
-    public boolean setAdmin(String password) {
-        if (password.equals("Open Sesame!")) {
+    /**
+     * Setter for whether the User is a Worker. Changeable by Admins only.
+     * @param user The Admin account to change the account type with.
+     * @return Whether the value has been updated.
+     */
+    boolean setWorker(User user) {
+        if (user.isAdmin()) {
+            this.isWorker = true;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Setter for whether the User is a Manager. Changeable by Admins only.
+     * @param user The Admin account to change the account type with.
+     * @return Whether the value has been updated.
+     */
+    boolean setManager(User user) {
+        if (user.isAdmin()) {
+            this.isWorker = true;
+            this.isManager = true;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Setter for whether the User is an Admin. As no account type trumps Admin,
+     * a password is required to become an admin.
+     * @param password The password required to become an Admin.
+     * @return Whether the value has been updated.
+     */
+    boolean setAdmin(String password) {
+        if (password.equals("Alohamora!")) {
             this.isWorker = true;
             this.isManager = true;
             this.isAdmin = true;
@@ -71,53 +99,51 @@ public class User {
         return false;
     }
 
-    public boolean setManager(String password) {
-        if (password.equals("Abra Kadabra!")) {
-            this.isWorker = true;
-            this.isManager = true;
-            this.isAdmin = true;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean setAdmin(String password) {
-        if (password.equals("Open Sesame!")) {
-            this.isWorker = true;
-            this.isManager = true;
-            this.isAdmin = true;
-            return true;
-        }
-        return false;
-    }
-
-    public String getRealName() {
+    /**
+     * Getter for the User's real name.
+     * @return The User's real name.
+     */
+    String getRealName() {
         return this.realName;
     }
 
-    public String getUsername(User user) {
-        if (user.isAdmin()) {
-            return this.username;
-        }
-        return null;
+    /**
+     * Getter for the User's username.
+     * @return The User's username.
+     */
+    String getUsername() {
+        return this.username;
     }
 
-    public String getPassword(User user) {
-        if (user.isAdmin()) {
+    /**
+     * Getter for the User's password.  Only accessible by Admins and the user themselves.
+     * @param user The User accessing the data.
+     * @return Either the User's password or a null String.
+     */
+    String getPassword(User user) {
+        if ((user.isAdmin()) || (user.equals(this))) {
             return this.password;
         }
         return null;
     }
 
-    public boolean isWorker() {
+    int getId() {
+        return this.id;
+    }
+
+    /**
+     * Getter for whether the User is a Worker.
+     * @return Whether the User is a Worker.
+     */
+    boolean isWorker() {
         return this.isWorker;
     }
 
     /**
-     *
-     * @return
+     * Getter for whether the User is a Manager.
+     * @return Whether the User is a Manager.
      */
-    public boolean isManager() {
+    boolean isManager() {
         return this.isManager;
     }
 
@@ -125,7 +151,16 @@ public class User {
      * Getter for whether the User is an Admin.
      * @return Whether the User is an Admin.
      */
-    public boolean isAdmin() {
+    boolean isAdmin() {
         return this.isAdmin;
+    }
+
+    /**
+     * Checker for whether this User object equals another.
+     * @param user The other User.
+     * @return Whether this User equals the other User.
+     */
+    private boolean equals(User user) {
+        return (this.username.equals(user.username));
     }
 }
