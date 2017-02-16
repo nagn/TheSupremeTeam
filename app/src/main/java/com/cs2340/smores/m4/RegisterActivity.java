@@ -97,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean isValid (String check) {
         boolean match = true;
-        for (int i = 0; i < check.length()-1; i++) {
+        for (int i = 0; i < check.length(); i++) {
           if (check.substring(i,i+1).matches("[^A-Za-z0-9 ]")){
               match = false;
           }

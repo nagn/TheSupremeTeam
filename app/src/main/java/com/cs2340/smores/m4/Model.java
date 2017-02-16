@@ -13,6 +13,7 @@ class Model {
     static Model getInstance() { return _instance; }
 
     private static ArrayList<User> users;
+    private static ArrayList<User> blacklist;
     private static User user;
 
     private Model() {
@@ -53,9 +54,20 @@ class Model {
         users.add(user);
     }
 
-    boolean inTheList (String user) {
+    boolean inTheList (String username) {
         for (int i =0; i < users.size(); i++) {
-            if (users.get(i).getUsername().equals(user)) {
+            if (users.get(i).getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    boolean lock ( String username ) {
+        for (int i =0; i < users.size(); i++) {
+            if (users.get(i).getUsername().equals(username)) {
+                blacklist.add(users.get(i));
+                users.remove(i);
                 return true;
             }
         }

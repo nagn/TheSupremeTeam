@@ -19,6 +19,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText username;
     private EditText password;
     private Model model;
+    private final int LIMIT_LOGIN = 5;
+    private int nLogin = 0;
+    private String lastLogin = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +49,20 @@ public class LoginActivity extends AppCompatActivity {
             model.setUser(user);
             startActivity(new Intent(view.getContext(), HomeActivity.class));
         } else {
+            if (!givenUsername.isEmpty() && model.inTheList(givenUsername)) {
+                if (!givenUsername.equals(lastLogin)) {
+                    lastLogin = givenUsername;
+                    nLogin = 0;
+                }
+                nLogin++;
+                if (nLogin == LIMIT_LOGIN) {
+                    model.lock(lastLogin);
+                }
+            }
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
             alertDialogBuilder.setView(R.layout.popup);
             final AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
-
             TextView txtView = (TextView) alertDialog.findViewById(R.id.txtView);
             Resources res = getResources();
             String error_message = res.getString(R.string.account_not_found);

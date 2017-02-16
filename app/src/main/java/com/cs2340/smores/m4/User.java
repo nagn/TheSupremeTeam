@@ -57,17 +57,40 @@ class User {
     }
 
     /**
+     * Remove the access to a employee if they have bad conduct
+     * @param user the admin
+     * @return Whether the employee is fired
+     */
+    boolean fireEmployee (User user)
+    {
+        if (user.isAdmin()) {
+            if (this.isAdmin()) {
+                return false;
+            } else {
+                this.isWorker = false;
+                this.isManager= false;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Setter for whether the User is a Worker. Changeable by Admins only.
      * @param user The Admin account to change the account type with.
      * @return Whether the value has been updated.
      */
     boolean setWorker(User user) {
         if (user.isAdmin() || user.isManager()) {
+            if (user.isAdmin() || user.isManager() || user.isWorker()) {
+                return false;
+            }
             this.isWorker = true;
             return true;
         }
         return false;
     }
+
 
     /**
      * Setter for whether the User is a Manager. Changeable by Admins only.
@@ -76,6 +99,9 @@ class User {
      */
     boolean setManager(User user) {
         if (user.isAdmin()) {
+            if (user.isAdmin() || user.isManager()) {
+                return false;
+            }
             this.isWorker = true;
             this.isManager = true;
             return true;
@@ -90,6 +116,9 @@ class User {
      * @return Whether the value has been updated.
      */
     boolean setAdmin(String password) {
+        if (this.isAdmin()) {
+            return false;
+        }
         if (password.equals("Alohamora!")) {
             this.isWorker = true;
             this.isManager = true;
