@@ -18,8 +18,14 @@ class Model {
     private Model() {
         users = new ArrayList<>();
         User firstUser = new User("George P. Burdell", "user", "pass");
+        User manager = new User ("Yi", "Yi", "123456" );
+        User worker = new User ("May", "May", "123456");
         firstUser.setAdmin("Alohamora!");
+        manager.setManager(firstUser);
+        worker.setWorker(manager);
         addUser(firstUser);
+        addUser(manager);
+        addUser(worker);
     }
 
     static User checkLogin(String givenUsername, String givenPassword) {
@@ -35,7 +41,7 @@ class Model {
         return Model.users;
     }
 
-    public User getUser() {
+    User getUser() {
         return Model.user;
     }
 
