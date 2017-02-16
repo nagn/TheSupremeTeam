@@ -62,7 +62,7 @@ class User {
      * @return Whether the value has been updated.
      */
     boolean setWorker(User user) {
-        if (user.isAdmin()) {
+        if (user.isAdmin() || user.isManager()) {
             this.isWorker = true;
             return true;
         }
