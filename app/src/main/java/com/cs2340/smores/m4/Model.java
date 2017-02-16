@@ -52,4 +52,13 @@ class Model {
     void addUser(User user) {
         users.add(user);
     }
+
+    boolean inTheList (String user) {
+        for (int i =0; i < users.size(); i++) {
+            if (users.get(i).getUsername().equals(user)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -50,7 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (!(password1.equals(password2))
                 || (realName.length() == 0) || (username.length() == 0)
-                || (password1.length() == 0) || (password2.length() == 0)) {
+                || (password1.length() == 0) || (password2.length() == 0) ||
+                !isValid(username) || !isNew(username)) {
             Resources res = getResources();
 
             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(view.getContext());
@@ -59,7 +60,11 @@ public class RegisterActivity extends AppCompatActivity {
             alertDialog.show();
 
             String error_message;
-            if (password1.equals(password2)) {
+            if (!isNew(username)) {
+                error_message = res.getString(R.string.missing_info);
+            } else if (!isValid(username)) {
+                error_message = res.getString(R.string.missing_info);
+            } else if (password1.equals(password2)) {
                 error_message = res.getString(R.string.missing_info);
             } else {
                 error_message = res.getString(R.string.password_mismatch);
@@ -88,5 +93,23 @@ public class RegisterActivity extends AppCompatActivity {
      */
     public void onCancelRegister(View view) {
         super.onBackPressed();
+    }
+
+    private boolean isValid (String check) {
+        boolean match = true;
+        for (int i = 0; i < check.length()-1; i++) {
+          if (check.substring(i,i+1).matches("[^A-Za-z0-9 ]")){
+              match = false;
+          }
+        }
+        return match;
+    }
+
+    private boolean isNew(String check) {
+        boolean match = true;
+        if (model.inTheList(check)) {
+            match = false;
+        }
+        return match;
     }
 }
