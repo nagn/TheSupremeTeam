@@ -10,8 +10,8 @@ import java.lang.reflect.Array;
  */
 public class User {
 
-    private final String realName;
-    private final String username;
+    private String realName;
+    private String username;
     private String password;
     private String email;
     private String phoneNumber;
@@ -19,7 +19,7 @@ public class User {
     private boolean isWorker;
     private boolean isManager;
     private boolean isAdmin;
-    public static String[] userTypes = new String[]{"Customer", "Worker", "Manager", "Admin"};
+    public final static String[] userTypes = new String[]{"Customer", "Worker", "Manager", "Admin"};
 
     /**
      * Constructor for a User.
@@ -72,6 +72,14 @@ public class User {
         return ((this.username.equals(username)) && (this.password.equals(password)));
     }
 
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     /**
      * Setter for the User's password. Requires the old password.
      * @param oldPassword The current password of the User.
@@ -85,11 +93,31 @@ public class User {
         return false;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setCustomer() {
+        this.isWorker = false;
+        this.isManager = false;
+        this.isAdmin = false;
+    }
+
     /**
      * Setter for whether the User is a Worker.
      */
     public void setWorker() {
         this.isWorker = true;
+        this.isManager = false;
+        this.isAdmin = false;
     }
 
     /**
@@ -98,6 +126,7 @@ public class User {
     public void setManager() {
         this.isWorker = true;
         this.isManager = true;
+        this.isAdmin = false;
     }
 
     /**
@@ -107,6 +136,19 @@ public class User {
         this.isWorker = true;
         this.isManager = true;
         this.isAdmin = true;
+    }
+
+    public void setUserType(int userType) {
+        switch (userType) {
+            case 3:
+                this.setAdmin();
+            case 2:
+                this.setManager();
+            case 1:
+                this.setWorker();
+            default:
+                break;
+        }
     }
 
     /**
@@ -126,15 +168,23 @@ public class User {
     }
 
     /**
-     * Getter for the User's password.  Only accessible by Admins and the user themselves.
-     * @param user The User accessing the data.
-     * @return Either the User's password or a null String.
+     * Getter for the User's password.
+     * @return The User's password.
      */
-    public String getPassword(User user) {
-        if ((user.isAdmin()) || (user.equals(this))) {
-            return this.password;
-        }
-        return null;
+    public String getPassword() {
+        return this.password;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public String getAddress() {
+        return this.address;
     }
 
     /**
@@ -180,10 +230,11 @@ public class User {
 
     /**
      * Checker for whether this User object equals another.
-     * @param user The other User.
+     * @param o The other User.
      * @return Whether this User equals the other User.
      */
-    private boolean equals(User user) {
-        return (this.username.equals(user.username));
+    @Override
+    public boolean equals(Object o) {
+        return ((o instanceof User) && (this.username.equals(((User) o).username)));
     }
 }

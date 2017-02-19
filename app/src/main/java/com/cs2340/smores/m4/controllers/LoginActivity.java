@@ -18,7 +18,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText username;
     private EditText password;
-    private Model model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +26,6 @@ public class LoginActivity extends AppCompatActivity {
 
         username = (EditText) findViewById(R.id.editText);
         password = (EditText) findViewById(R.id.editText2);
-
-        model = Model.getInstance();
     }
 
     /**
@@ -41,9 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginPressed(View view) {
         String givenUsername = username.getText().toString();
         String givenPassword = password.getText().toString();
-        User user = model.checkLogin(givenUsername, givenPassword);
+        User user = Model.checkLogin(givenUsername, givenPassword);
         if (user != null) {
-            model.setUser(user);
+            Model.setUser(user);
             startActivity(new Intent(view.getContext(), HomeActivity.class));
             finish();
         } else {

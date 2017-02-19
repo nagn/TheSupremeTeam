@@ -23,21 +23,24 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText editUsername;
     private EditText editPassword1;
     private EditText editPassword2;
+    private EditText editEmailAddress;
+    private EditText editPhoneNumber;
+    private EditText editAddress;
     private Spinner userTypeSpinner;
-    private Model model;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity);
 
-        model = Model.getInstance();
-
         editRealName = (EditText) this.findViewById(R.id.editRealName);
         editUsername = (EditText) this.findViewById(R.id.editUsername);
         editPassword1 = (EditText) this.findViewById(R.id.editPassword1);
         editPassword2 = (EditText) this.findViewById(R.id.editPassword2);
         userTypeSpinner = (Spinner) this.findViewById(R.id.userTypeSpinner);
+        editEmailAddress = (EditText) this.findViewById(R.id.editEmailAddress);
+        editPhoneNumber = (EditText) this.findViewById(R.id.editPhoneNumber);
+        editAddress = (EditText) this.findViewById(R.id.editHomeAddress);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
                 android.R.layout.simple_spinner_item, User.userTypes);
         userTypeSpinner.setAdapter(adapter);
@@ -55,18 +58,21 @@ public class RegisterActivity extends AppCompatActivity {
         String username = editUsername.getText().toString();
         String password1 = editPassword1.getText().toString();
         String password2 = editPassword2.getText().toString();
+        String email = editEmailAddress.getText().toString();
+        String phoneNumber = editPhoneNumber.getText().toString();
+        String address = editAddress.getText().toString();
         int userType = userTypeSpinner.getSelectedItemPosition();
 
         if (!(password1.equals(password2))
                 || (realName.length() == 0) || (username.length() == 0)
                 || (password1.length() == 0) || (password2.length() == 0)
-                || (!isValid(username)) || (!isNew(username))) {
+                || (!Model.isValid(username)) || (!Model.isNew(username))) {
             Resources res = getResources();
             String errorMessage;
 
-            if (!isNew(username)) {
+            if (!Model.isNew(username)) {
                 errorMessage = res.getString(R.string.username_taken);
-            } else if (!isValid(username)) {
+            } else if (!Model.isValid(username)) {
                 errorMessage = res.getString(R.string.invalid_username);
             } else if (!password1.equals(password2)) {
                 errorMessage = res.getString(R.string.password_mismatch);
@@ -76,24 +82,20 @@ public class RegisterActivity extends AppCompatActivity {
 
             new Error(view, errorMessage);
         } else {
-
-            model.addUser(new User(realName, username, password1, userType));
+            if (email.length() == 0) {
+                email = "Unknown";
+            }
+            if (phoneNumber.length() == 0) {
+                phoneNumber = "Unknown";
+            }
+            if (address.length() == 0) {
+                address = "Unknown";
+            }
+            Model.users.add(new User(realName, username, password1,
+                    userType, email, phoneNumber, address));
             startActivity(new Intent(view.getContext(), MainActivity.class));
             finish();
         }
-    }
-
-    private boolean isValid(String username) {
-        for (int i = 0; i < username.length() - 1; i++) {
-            if (username.substring(i, i + 1).matches("[^A-Za-z0-9]")) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean isNew(String username) {
-        return !(model.exists(username));
     }
 
     /**

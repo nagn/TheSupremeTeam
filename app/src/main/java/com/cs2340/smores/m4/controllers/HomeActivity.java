@@ -18,15 +18,13 @@ public class HomeActivity extends AppCompatActivity {
 
     TextView welcome;
     TextView accountType;
-    Model model;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity_main);
 
-        model = Model.getInstance();
-        User user = model.getUser();
+        User user = Model.user;
 
         welcome = (TextView) findViewById(R.id.welcome);
         welcome.setText("Welcome, " + user.getRealName() + "!");
@@ -61,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
      * @param view Default view parameter for onClick custom method.
      */
     public void onLogoutPressed(View view) {
-        model.setUser(null);
+        Model.setUser(null);
         Intent intent = new Intent(view.getContext(), MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

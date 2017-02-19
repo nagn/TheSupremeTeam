@@ -1,5 +1,7 @@
 package com.cs2340.smores.m4.model;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -13,48 +15,45 @@ import java.util.ArrayList;
 
 public class Model {
 
+    public static ArrayList<User> users;
+    public static User user;
 
-    private static final Model instance = new Model();
-    public static Model getInstance() { return instance; }
+//    static {
+//        users = new ArrayList<>();
+//        users.add(new User("George P. Burdell", "user", "pass", 3));
+//        users.add(new User("Samuel Mohr", "smores", "wowee", 3));
+//        users.add(new User ("Yi", "Yi", "123456", 2));
+//        users.add(new User ("May", "May", "123456", 1));
+//    }
 
-    private ArrayList<User> users;
-    private User user;
-
-    private Model() {
-        users = new ArrayList<>();
-        addUser(new User("George P. Burdell", "user", "pass", 3));
-        addUser(new User("Samuel Mohr", "smores", "wowee", 3));
-        addUser(new User ("Yi", "Yi", "123456", 2));
-        addUser(new User ("May", "May", "123456", 1));
+    public static void setUser(User user) {
+        Model.user = user;
     }
 
-    public User checkLogin(String username, String password) {
-        for (int i = 0; i < this.users.size(); i++) {
-            if (this.users.get(i).unlock(username, password)) {
-                return this.users.get(i);
+    public static User checkLogin(String username, String password) {
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).unlock(username, password)) {
+                return users.get(i);
             }
         }
         return null;
     }
 
-    public ArrayList<User> getUsers() {
-        return this.users;
+    public static boolean isValid(String username) {
+        for (int i = 0; i < username.length() - 1; i++) {
+            if (username.substring(i, i + 1).matches("[^A-Za-z0-9]")) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public User getUser() {
-        return this.user;
+    public static boolean isNew(String username) {
+        return !(Model.exists(username));
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void addUser(User user) {
-        this.users.add(user);
-    }
-
-    public boolean exists(String username) {
-        for (User u : this.users) {
+    private static boolean exists(String username) {
+        for (User u : users) {
             if (u.getUsername().equals(username)) {
                 return true;
             }
@@ -62,12 +61,12 @@ public class Model {
         return false;
     }
 
-    public boolean toFile(String fileName) {
+    public static boolean save(String fileName) {
         try {
             PrintWriter writer = new PrintWriter(fileName);
-            for (User u : this.users) {
+            for (User u : users) {
                 writer.println(u.getRealName() + "," + u.getUsername()
-                        + "," + u.getPassword(u) + "," + u.userTypeToInt());
+                        + "," + u.getPassword() + "," + u.userTypeToInt());
             }
             writer.close();
             return true;
@@ -76,7 +75,7 @@ public class Model {
         }
     }
 
-    public boolean load(String fileName) {
+    public static boolean load(String fileName) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line = reader.readLine();
