@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.cs2340.smores.m4.R;
+import com.cs2340.smores.m4.model.DatabaseHandler;
+import com.cs2340.smores.m4.model.Model;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Model.dbHandler = new DatabaseHandler(getApplicationContext());
+        Model.users = Model.dbHandler.getUsers();
     }
 
     /**

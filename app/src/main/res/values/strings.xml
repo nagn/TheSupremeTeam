@@ -3,6 +3,7 @@
     <string name="register_activity_name">Register</string>
     <string name="login_activity_name">Login</string>
     <string name="home_activity_name">Home</string>
+    <string name="edit_account_activity_name">Edit Account</string>
     <string name="account_not_found">The login info that you specified does not match any existing accounts. Please try again.</string>
     <string name="password_mismatch">Your passwords do not match. Check that you have entered both correctly.</string>
     <string name="missing_info">You have not filled in some log in information. Please complete all fields.</string>

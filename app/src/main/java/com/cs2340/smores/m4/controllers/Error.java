@@ -6,7 +6,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cs2340.smores.m4.R;
-import com.cs2340.smores.m4.model.Model;
 
 /**
  * The popup window activity for all errors that occur in the app.

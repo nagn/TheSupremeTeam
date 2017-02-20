@@ -24,29 +24,27 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity_main);
 
-        User user = Model.user;
-
         welcome = (TextView) findViewById(R.id.welcome);
-        welcome.setText("Welcome, " + user.getRealName() + "!");
-
-        String type;
-        switch (user.userTypeToInt()) {
-            case 3:
-                type = "an Admin";
-                break;
-            case 2:
-                type = "a Manager";
-                break;
-            case 1:
-                type = "a Worker";
-                break;
-            default:
-                type = "a Customer";
-                break;
-        }
+        welcome.setText("Welcome, " + Model.user.getRealName() + "!");
 
         accountType = (TextView) findViewById(R.id.accountType);
-        accountType.setText("You are " + type + ".");
+        accountType.setText("You are " + getType() + ".");
+    }
+
+    @Override
+    protected void onRestart() {
+        welcome.setText("Welcome, " + Model.user.getRealName() + "!");
+        accountType.setText("You are " + getType() + ".");
+        String str = Model.user.getRealName();
+        int num = Model.user.userTypeToInt();
+        super.onRestart();
+    }
+
+    public String getType() {
+        if (Model.user.isAdmin()) { return "an Admin"; }
+        if (Model.user.isManager()) { return "a Manager"; }
+        if (Model.user.isWorker()) { return "a Worker"; }
+        return "a Customer";
     }
 
     public void onEditAccount(View view) {

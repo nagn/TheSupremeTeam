@@ -91,7 +91,7 @@ public class RegisterActivity extends AppCompatActivity {
             if (address.length() == 0) {
                 address = "Unknown";
             }
-            Model.users.add(new User(realName, username, password1,
+            Model.addUser(new User(realName, username, password1,
                     userType, email, phoneNumber, address));
             startActivity(new Intent(view.getContext(), MainActivity.class));
             finish();

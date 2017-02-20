@@ -81,7 +81,7 @@ public class EditAccountActivity extends AppCompatActivity {
 
             new Error(view, errorMessage);
         } else {
-            Model.users.remove(user);
+            Model.removeUser(user);
 
             if ((oldPassword.length() > 0) || (newPassword1.length() > 0)
                     || (newPassword2.length() > 0)) {
@@ -105,7 +105,8 @@ public class EditAccountActivity extends AppCompatActivity {
             }
             user.setUserType(userType);
 
-            Model.users.add(user);
+            Model.addUser(user);
+            Model.setUser(user);
 
             super.onBackPressed();
         }

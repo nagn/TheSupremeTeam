@@ -26,14 +26,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + "("
                 + KEY_USERNAME + " TEXT PRIMARY KEY," + KEY_REAL_NAME + " TEXT,"
-                + KEY_PASSWORD + " TEXT," + KEY_EMAIL + " TEXT,"
-                + KEY_PHONE_NUMBER + " TEXT," + KEY_ADDRESS + " TEXT,"
-                + KEY_USER_TYPE + " INTEGER" + ")";
+                + KEY_PASSWORD + " TEXT," + KEY_USER_TYPE + " INTEGER,"
+                + KEY_EMAIL + " TEXT," + KEY_PHONE_NUMBER +
+                " TEXT," + KEY_ADDRESS + " TEXT" + ")";
         db.execSQL(CREATE_USERS_TABLE);
     }
 
@@ -46,7 +45,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     void addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();;
+        ContentValues values = new ContentValues();
         values.put(KEY_USERNAME, user.getUsername());
         values.put(KEY_REAL_NAME, user.getRealName());
         values.put(KEY_PASSWORD, user.getPassword());
@@ -67,9 +66,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 KEY_USERNAME + "=?", new String[] { String.valueOf(id) }, null, null, null, null);
         if (c != null)
             c.moveToFirst();
-        User user = new User(c.getString(1), c.getString(0), c.getString(2),
-                Integer.parseInt(c.getString(3)), c.getString(4), c.getString(5), c.getString(6));
-        c.close();
+        User user;
+        try {
+            user = new User(c.getString(1), c.getString(0), c.getString(2),
+                    Integer.parseInt(c.getString(3)), c.getString(4),
+                    c.getString(5), c.getString(6));
+            c.close();
+        } catch (NullPointerException e) {
+            return null;
+        }
         return user;
     }
 

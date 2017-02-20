@@ -52,11 +52,11 @@ public class User {
         this.address = address;
         switch (userType) {
             case 3:
-                this.setAdmin();
+                this.isAdmin = true;
             case 2:
-                this.setManager();
+                this.isManager = true;
             case 1:
-                this.setWorker();
+                this.isWorker = true;
             default:
                 break;
         }
@@ -139,15 +139,14 @@ public class User {
     }
 
     public void setUserType(int userType) {
-        switch (userType) {
-            case 3:
-                this.setAdmin();
-            case 2:
-                this.setManager();
-            case 1:
-                this.setWorker();
-            default:
-                break;
+        if (userType == 0) {
+            this.setCustomer();
+        } else if (userType == 1) {
+            this.setWorker();
+        } else if (userType == 2) {
+            this.setManager();
+        } else {
+            this.setAdmin();
         }
     }
 
