@@ -1,14 +1,12 @@
 package com.cs2340.smores.m4.model;
 
-import java.lang.reflect.Array;
-
 /**
  * User object for the project.
  *
  * @author Samuel Mohr
  * @version 1.0
  */
-public class User {
+public abstract class User {
 
     private String realName;
     private String username;
@@ -16,33 +14,18 @@ public class User {
     private String email;
     private String phoneNumber;
     private String address;
-    private boolean isWorker;
-    private boolean isManager;
-    private boolean isAdmin;
     public final static String[] userTypes = new String[]{"Customer", "Worker", "Manager", "Admin"};
 
     /**
-     * Constructor for a User.
+     * Constructor for the abstract superclass User.  Takes in all required information.
      * @param realName The real name of the User.
      * @param username The username of the User.
      * @param password The password of the User.
+     * @param email The email of the user.
+     * @param phoneNumber The phone number of the User.
+     * @param address The address of the User.
      */
-    public User(String realName, String username, String password) {
-        this(realName, username, password, 0);
-    }
-
-    /**
-     * Constructor for a User.
-     * @param realName The real name of the User.
-     * @param username The username of the User.
-     * @param password The password of the User.
-     * @param userType The type of User being created.
-     */
-    public User(String realName, String username, String password, int userType) {
-        this(realName, username, password, userType, "Unknown", "Unknown", "Unknown");
-    }
-
-    public User(String realName, String username, String password, int userType, String email,
+    public User(String realName, String username, String password, String email,
                 String phoneNumber, String address) {
         this.realName = realName;
         this.username = username;
@@ -50,16 +33,6 @@ public class User {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        switch (userType) {
-            case 3:
-                this.isAdmin = true;
-            case 2:
-                this.isManager = true;
-            case 1:
-                this.isWorker = true;
-            default:
-                break;
-        }
     }
 
     /**
@@ -68,14 +41,22 @@ public class User {
      * @param password The matching proposed password.
      * @return Whether the login info is correct.
      */
-    public boolean unlock(String username, String password) {
+    boolean unlock(String username, String password) {
         return ((this.username.equals(username)) && (this.password.equals(password)));
     }
 
+    /**
+     * Setter for the User's real name.
+     * @param realName The new real name of the User.
+     */
     public void setRealName(String realName) {
         this.realName = realName;
     }
 
+    /**
+     * Setter for the username of the User.
+     * @param username The username of the User.
+     */
     public void setUsername(String username) {
         this.username = username;
     }
@@ -93,61 +74,28 @@ public class User {
         return false;
     }
 
+    /**
+     * Setter for the email address of the User.
+     * @param email The new email address for the User.
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Setter for the phone number of the User.
+     * @param phoneNumber The new phone number for the User.
+     */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * Setter for the address of the User.
+     * @param address The new address of the User.
+     */
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public void setCustomer() {
-        this.isWorker = false;
-        this.isManager = false;
-        this.isAdmin = false;
-    }
-
-    /**
-     * Setter for whether the User is a Worker.
-     */
-    public void setWorker() {
-        this.isWorker = true;
-        this.isManager = false;
-        this.isAdmin = false;
-    }
-
-    /**
-     * Setter for whether the User is a Manager.
-     */
-    public void setManager() {
-        this.isWorker = true;
-        this.isManager = true;
-        this.isAdmin = false;
-    }
-
-    /**
-     * Setter for whether the User is an Admin.
-     */
-    public void setAdmin() {
-        this.isWorker = true;
-        this.isManager = true;
-        this.isAdmin = true;
-    }
-
-    public void setUserType(int userType) {
-        if (userType == 0) {
-            this.setCustomer();
-        } else if (userType == 1) {
-            this.setWorker();
-        } else if (userType == 2) {
-            this.setManager();
-        } else {
-            this.setAdmin();
-        }
     }
 
     /**
@@ -174,61 +122,41 @@ public class User {
         return this.password;
     }
 
+    /**
+     * Getter for the User's current email address.
+     * @return The User's current email address.
+     */
     public String getEmail() {
         return this.email;
     }
 
+    /**
+     * Getter of the User's current phone number.
+     * @return The User's current phone number.
+     */
     public String getPhoneNumber() {
         return this.phoneNumber;
     }
 
+    /**
+     * Getter of the User's current address.
+     * @return The User's current address.
+     */
     public String getAddress() {
         return this.address;
     }
 
     /**
-     * Getter for whether the User is a Worker.
-     * @return Whether the User is a Worker.
+     * Getter for the type of User. Used in the database.
+     * @return The type of User in String format.
      */
-    public boolean isWorker() {
-        return this.isWorker;
-    }
-
-    /**
-     * Getter for whether the User is a Manager.
-     * @return Whether the User is a Manager.
-     */
-    public boolean isManager() {
-        return this.isManager;
-    }
-
-    /**
-     * Getter for whether the User is an Admin.
-     * @return Whether the User is an Admin.
-     */
-    public boolean isAdmin() {
-        return this.isAdmin;
-    }
-
-    /**
-     * Converter to give the equivalent int for a User type.
-     * @return an int represenative of the User type of the User:
-     * 3 = Admin, 2 = Manager, 1 = Worker, and 0 = Customer
-     */
-    public int userTypeToInt() {
-        if (this.isAdmin) {
-            return 3;
-        } else if (this.isManager) {
-            return 2;
-        } else if (this.isWorker) {
-            return 1;
-        } else {
-            return 0;
-        }
+    public String type() {
+        return "User";
     }
 
     /**
      * Checker for whether this User object equals another.
+     * Used in removal from the User ArrayList.
      * @param o The other User.
      * @return Whether this User equals the other User.
      */

@@ -6,9 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cs2340.smores.m4.model.Admin;
+import com.cs2340.smores.m4.model.Manager;
 import com.cs2340.smores.m4.model.Model;
-import com.cs2340.smores.m4.model.User;
 import com.cs2340.smores.m4.R;
+import com.cs2340.smores.m4.model.User;
+import com.cs2340.smores.m4.model.Worker;
 
 /**
  * The class for the home page and standard activities of the app.
@@ -35,15 +38,13 @@ public class HomeActivity extends AppCompatActivity {
     protected void onRestart() {
         welcome.setText("Welcome, " + Model.user.getRealName() + "!");
         accountType.setText("You are " + getType() + ".");
-        String str = Model.user.getRealName();
-        int num = Model.user.userTypeToInt();
         super.onRestart();
     }
 
     public String getType() {
-        if (Model.user.isAdmin()) { return "an Admin"; }
-        if (Model.user.isManager()) { return "a Manager"; }
-        if (Model.user.isWorker()) { return "a Worker"; }
+        if (Model.user instanceof Admin) { return "an Admin"; }
+        if (Model.user instanceof Manager) { return "a Manager"; }
+        if (Model.user instanceof Worker) { return "a Worker"; }
         return "a Customer";
     }
 

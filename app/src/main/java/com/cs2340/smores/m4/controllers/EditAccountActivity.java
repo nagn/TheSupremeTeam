@@ -4,9 +4,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
 
 import com.cs2340.smores.m4.R;
 import com.cs2340.smores.m4.model.Model;
@@ -26,7 +24,6 @@ public class EditAccountActivity extends AppCompatActivity {
     private EditText editEmailAddress;
     private EditText editPhoneNumber;
     private EditText editAddress;
-    private Spinner userTypeSpinner;
     private User user;
 
     @Override
@@ -41,14 +38,9 @@ public class EditAccountActivity extends AppCompatActivity {
         editOldPassword = (EditText) this.findViewById(R.id.editOldPassword);
         editNewPassword1 = (EditText) this.findViewById(R.id.editPassword1);
         editNewPassword2 = (EditText) this.findViewById(R.id.editPassword2);
-        userTypeSpinner = (Spinner) this.findViewById(R.id.userTypeSpinner);
         editEmailAddress = (EditText) this.findViewById(R.id.editEmailAddress);
         editPhoneNumber = (EditText) this.findViewById(R.id.editPhoneNumber);
         editAddress = (EditText) this.findViewById(R.id.editHomeAddress);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_item, User.userTypes);
-        userTypeSpinner.setAdapter(adapter);
-        userTypeSpinner.setSelection(user.userTypeToInt());
     }
 
     public void onEditAccount(View view) {
@@ -60,7 +52,6 @@ public class EditAccountActivity extends AppCompatActivity {
         String email = editEmailAddress.getText().toString();
         String phoneNumber = editPhoneNumber.getText().toString();
         String address = editAddress.getText().toString();
-        int userType = userTypeSpinner.getSelectedItemPosition();
 
         if ((((oldPassword.length() > 0) || (newPassword1.length() > 0)
                 || (newPassword2.length() > 0)) && (!(newPassword1.equals(newPassword2))
@@ -87,7 +78,6 @@ public class EditAccountActivity extends AppCompatActivity {
                     || (newPassword2.length() > 0)) {
                 user.setPassword(oldPassword, newPassword1);
             }
-
             if (realName.length() > 0) {
                 user.setRealName(realName);
             }
@@ -103,7 +93,6 @@ public class EditAccountActivity extends AppCompatActivity {
             if (address.length() > 0) {
                 user.setAddress(address);
             }
-            user.setUserType(userType);
 
             Model.addUser(user);
             Model.setUser(user);

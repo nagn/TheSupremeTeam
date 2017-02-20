@@ -12,6 +12,10 @@ import android.widget.Spinner;
 import com.cs2340.smores.m4.R;
 import com.cs2340.smores.m4.model.Model;
 import com.cs2340.smores.m4.model.User;
+import com.cs2340.smores.m4.model.Customer;
+import com.cs2340.smores.m4.model.Worker;
+import com.cs2340.smores.m4.model.Manager;
+import com.cs2340.smores.m4.model.Admin;
 
 /**
  * The activity class for the registration page and process of the app.
@@ -91,8 +95,24 @@ public class RegisterActivity extends AppCompatActivity {
             if (address.length() == 0) {
                 address = "Unknown";
             }
-            Model.addUser(new User(realName, username, password1,
-                    userType, email, phoneNumber, address));
+
+            User user;
+            switch (userType) {
+                case 3:
+                    user = new Admin(realName, username, password1, email, phoneNumber, address);
+                    break;
+                case 2:
+                    user = new Worker(realName, username, password1, email, phoneNumber, address);
+                    break;
+                case 1:
+                    user = new Manager(realName, username, password1, email, phoneNumber, address);
+                    break;
+                default:
+                    user = new Customer(realName, username, password1, email, phoneNumber, address);
+                    break;
+            }
+
+            Model.addUser(user);
             startActivity(new Intent(view.getContext(), MainActivity.class));
             finish();
         }

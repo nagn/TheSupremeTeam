@@ -18,13 +18,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.cs2340.smores.m4.controllers.LoginActivity"
-            android:label="@string/login_activity_name">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name="com.cs2340.smores.m4.controllers.RegisterActivity"
             android:label="@string/register_activity_name">
             <intent-filter>

@@ -30,7 +30,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_USERS + "("
                 + KEY_USERNAME + " TEXT PRIMARY KEY," + KEY_REAL_NAME + " TEXT,"
-                + KEY_PASSWORD + " TEXT," + KEY_USER_TYPE + " INTEGER,"
+                + KEY_PASSWORD + " TEXT," + KEY_USER_TYPE + " TEXT,"
                 + KEY_EMAIL + " TEXT," + KEY_PHONE_NUMBER +
                 " TEXT," + KEY_ADDRESS + " TEXT" + ")";
         db.execSQL(CREATE_USERS_TABLE);
@@ -52,30 +52,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_EMAIL, user.getEmail());
         values.put(KEY_PHONE_NUMBER, user.getPhoneNumber());
         values.put(KEY_ADDRESS, user.getAddress());
-        values.put(KEY_USER_TYPE, user.userTypeToInt());
+        values.put(KEY_USER_TYPE, user.type());
 
         db.insert(TABLE_USERS, null, values);
         db.close();
-    }
-
-    User getUser(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor c = db.query(TABLE_USERS, new String[] { KEY_USERNAME, KEY_REAL_NAME,
-                KEY_PASSWORD, KEY_EMAIL, KEY_PHONE_NUMBER, KEY_ADDRESS, KEY_USER_TYPE },
-                KEY_USERNAME + "=?", new String[] { String.valueOf(id) }, null, null, null, null);
-        if (c != null)
-            c.moveToFirst();
-        User user;
-        try {
-            user = new User(c.getString(1), c.getString(0), c.getString(2),
-                    Integer.parseInt(c.getString(3)), c.getString(4),
-                    c.getString(5), c.getString(6));
-            c.close();
-        } catch (NullPointerException e) {
-            return null;
-        }
-        return user;
     }
 
     public ArrayList<User> getUsers() {
@@ -87,10 +67,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             User user;
+            String name;
+            String username;
+            String password;
+            String email;
+            String phoneNumber;
+            String address;
             do {
-                user = new User(cursor.getString(1), cursor.getString(0), cursor.getString(2),
-                        Integer.parseInt(cursor.getString(3)), cursor.getString(4),
-                        cursor.getString(5), cursor.getString(6));
+                name = cursor.getString(1);
+                username = cursor.getString(0);
+                password = cursor.getString(2);
+                email = cursor.getString(4);
+                phoneNumber = cursor.getString(5);
+                address = cursor.getString(6);
+                switch (cursor.getString(3)) {
+                    case "Admin":
+                        user = new Admin(name, username, password, email, phoneNumber, address);
+                        break;
+                    case "Manager":
+                        user = new Manager(name, username, password, email, phoneNumber, address);
+                        break;
+                    case "Worker":
+                        user = new Worker(name, username, password, email, phoneNumber, address);
+                        break;
+                    default:
+                        user = new Customer(name, username, password, email, phoneNumber, address);
+                        break;
+                }
                 users.add(user);
             } while (cursor.moveToNext());
         }
@@ -99,19 +102,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return users;
     }
 
-    public void removeUser(User user) {
+    void removeUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_USERS, KEY_USERNAME + " = ?",
                 new String[] { String.valueOf(user.getUsername()) });
         db.close();
     }
-
-    public int getSize() {
-        String countQuery = "SELECT  * FROM " + TABLE_USERS;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
-        cursor.close();
-        return cursor.getCount();
-    }
-
 }
