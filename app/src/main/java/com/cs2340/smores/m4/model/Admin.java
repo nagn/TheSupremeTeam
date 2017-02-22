@@ -15,4 +15,8 @@ public class Admin extends Manager {
     public String type() {
         return "Admin";
     }
+
+    public void unlock(User user) {
+        user.unlock(this);
+    }
 }

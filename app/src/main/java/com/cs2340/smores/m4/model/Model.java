@@ -1,7 +1,8 @@
 package com.cs2340.smores.m4.model;
 
-import java.util.ArrayList;
+import android.util.Log;
 
+import java.util.ArrayList;
 
 /**
  * The model class containing all hierarchical data for the app.
@@ -9,14 +10,14 @@ import java.util.ArrayList;
 
 public class Model {
 
-    public static ArrayList<User> users;
+    public static Log log; //TODO: implement the log for the app!
     public static User user;
-    public static DatabaseHandler dbHandler;
-
-//    users.add(new User("George P. Burdell", "user", "pass", 3));
-//    users.add(new User("Samuel Mohr", "smores", "wowee", 3));
-//    users.add(new User ("Yi", "Yi", "123456", 2));
-//    users.add(new User ("May", "May", "123456", 1));
+    public static ArrayList<User> users;
+    public static ArrayList<QualityReport> qualityReports;
+    public static ArrayList<PurityReport> purityReports;
+    public static UserDBHandler userDBHandler;
+    public static QualityReportDBHandler qualityReportDBHandler;
+    public static PurityReportDBHandler purityReportDBHandler;
 
 
     public static void setUser(User user) {
@@ -25,12 +26,21 @@ public class Model {
 
     public static void addUser(User user) {
         users.add(user);
-        dbHandler.addUser(user);
+        userDBHandler.addUser(user);
     }
 
     public static void removeUser(User user) {
         users.remove(user);
-        dbHandler.removeUser(user);
+        userDBHandler.removeUser(user);
+    }
+
+    public static User getUser(String username) {
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
     }
 
     public static User checkLogin(String username, String password) {
@@ -55,12 +65,32 @@ public class Model {
         return !(Model.exists(username));
     }
 
-    private static boolean exists(String username) {
+    public static boolean exists(String username) {
         for (User u : users) {
             if (u.getUsername().equals(username)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public static void addQualityReport(QualityReport report) {
+        qualityReports.add(report);
+        qualityReportDBHandler.addReport(report);
+    }
+
+    public static void removeQualityReport(QualityReport report) {
+        qualityReports.remove(report);
+        qualityReportDBHandler.removeReport(report);
+    }
+
+    public static void addPurityReport(PurityReport report) {
+        purityReports.add(report);
+        purityReportDBHandler.addReport(report);
+    }
+
+    public static void removePurityReport(PurityReport report) {
+        purityReports.remove(report);
+        purityReportDBHandler.removeReport(report);
     }
 }

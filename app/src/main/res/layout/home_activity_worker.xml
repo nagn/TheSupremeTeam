@@ -33,12 +33,24 @@
         android:layout_width="match_parent"
         android:layout_height="200dp" />
 
-    <Button
-        android:text="Make Report"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onMakeReport"
-        android:id="@+id/makeReport" />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="Make Report"
+            android:layout_height="wrap_content"
+            android:onClick="onMakeReport"
+            android:id="@+id/makeReport"
+            android:layout_width="190dp" />
+
+        <Button
+            android:text="View Reports"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewReports"
+            android:layout_width="190dp" />
+    </LinearLayout>
 
     <Button
         android:text="Edit Account"
@@ -51,6 +63,6 @@
         android:text="Logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button3"
+        android:id="@+id/logout"
         android:onClick="onLogoutPressed" />
 </LinearLayout>

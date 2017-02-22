@@ -20,7 +20,6 @@ import com.cs2340.smores.m4.model.Worker;
 public class HomeActivity extends AppCompatActivity {
 
     TextView welcome;
-    TextView accountType;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,23 +28,17 @@ public class HomeActivity extends AppCompatActivity {
 
         welcome = (TextView) findViewById(R.id.welcome);
         welcome.setText("Welcome, " + Model.user.getRealName() + "!");
-
-        accountType = (TextView) findViewById(R.id.accountType);
-        accountType.setText("You are " + getType() + ".");
     }
 
     @Override
     protected void onRestart() {
         welcome.setText("Welcome, " + Model.user.getRealName() + "!");
-        accountType.setText("You are " + getType() + ".");
         super.onRestart();
     }
 
-    public String getType() {
-        if (Model.user instanceof Admin) { return "an Admin"; }
-        if (Model.user instanceof Manager) { return "a Manager"; }
-        if (Model.user instanceof Worker) { return "a Worker"; }
-        return "a Customer";
+
+    public void onMakeReport(View view) {
+        startActivity(new Intent(view.getContext(), qualityReportActivity.class));
     }
 
     public void onEditAccount(View view) {

@@ -4,12 +4,17 @@
     <string name="login_activity_name">Login</string>
     <string name="home_activity_name">Home</string>
     <string name="edit_account_activity_name">Edit Account</string>
+    <string name="quality_report_activity_name">Make A Quality Report</string>
     <string name="account_not_found">The login info that you specified does not match any existing accounts. Please try again.</string>
     <string name="password_mismatch">Your passwords do not match. Check that you have entered both correctly.</string>
-    <string name="missing_info">You have not filled in some log in information. Please complete all fields.</string>
+    <string name="locked_account">That username has been used incorrectly at least 3 times, so the matching account was locked. Please contact an administrator to resolve the issue.</string>
+    <string name="missing_info_login">You have not filled in some log in information. Please complete all fields.</string>
+    <string name="general_missing_info">You have not filled in some information. Please complete all fields.</string>
     <string name="invalid_username">That username is invalid.  Please only use letters and numbers.</string>
     <string name="username_taken">An account with that username already exists. Please choose a different one.</string>
+    <string name="bad_PPMs">At least one of your PPM's is not an integer.   </string>
     <string name="wrong_old_password">Your old password is incorrect. Either remove it from the entry field to leave your old password or check that it is correct.</string>
     <string name="new_password_mismatch">Your new passwords do not match. Either remove them to leave your old password or check that they match.</string>
     <string name="account_editing">To edit your account, fill in the below fields. To leave a field unchanged, put no information in the field.</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

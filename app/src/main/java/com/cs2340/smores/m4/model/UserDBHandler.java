@@ -8,7 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
-public class DatabaseHandler extends SQLiteOpenHelper {
+/**
+ * Database handler to store User data between app sessions.
+ */
+public class UserDBHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "userDatabase";
@@ -22,7 +25,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_ADDRESS = "address";
     private static final String KEY_USER_TYPE = "userType";
 
-    public DatabaseHandler(Context context) {
+    public UserDBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

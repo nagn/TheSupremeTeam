@@ -14,10 +14,12 @@ public abstract class User {
     private String email;
     private String phoneNumber;
     private String address;
+    private boolean isBanned;
     public final static String[] userTypes = new String[]{"Customer", "Worker", "Manager", "Admin"};
 
     /**
-     * Constructor for the abstract superclass User.  Takes in all required information.
+     * Constructor for the abstract superclass User.
+     * Takes in all required information.
      * @param realName The real name of the User.
      * @param username The username of the User.
      * @param password The password of the User.
@@ -25,14 +27,15 @@ public abstract class User {
      * @param phoneNumber The phone number of the User.
      * @param address The address of the User.
      */
-    public User(String realName, String username, String password, String email,
-                String phoneNumber, String address) {
+    public User(String realName, String username, String password,
+            String email, String phoneNumber, String address) {
         this.realName = realName;
         this.username = username;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.isBanned = false;
     }
 
     /**
@@ -43,6 +46,23 @@ public abstract class User {
      */
     boolean unlock(String username, String password) {
         return ((this.username.equals(username)) && (this.password.equals(password)));
+    }
+
+    /**
+     * Method to lock out a user from login based on attempts.
+     */
+    public void ban() {
+        this.isBanned = true;
+    }
+
+    public void unban(User user) {
+        if (user instanceof Admin) {
+            this.isBanned = false;
+        }
+    }
+
+    public boolean isBanned() {
+        return this.isBanned;
     }
 
     /**
