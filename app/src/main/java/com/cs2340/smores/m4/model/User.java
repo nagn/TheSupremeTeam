@@ -1,20 +1,22 @@
 package com.cs2340.smores.m4.model;
 
+import android.util.Log;
+
+import java.text.DateFormat;
+import java.util.Date;
+
 /**
  * User object for the project.
  *
  * @author Samuel Mohr
  * @version 1.0
  */
-public abstract class User {
+public class User {
 
-    private String realName;
-    private String username;
-    private String password;
-    private String email;
-    private String phoneNumber;
-    private String address;
-    private boolean isBanned;
+    private String realName, username, password, email, phoneNumber, address;
+    private boolean isBanned, isLocked;
+    private int userType;
+
     public final static String[] userTypes = new String[]{"Customer", "Worker", "Manager", "Admin"};
 
     /**
@@ -28,15 +30,41 @@ public abstract class User {
      * @param address The address of the User.
      */
     public User(String realName, String username, String password,
-            String email, String phoneNumber, String address) {
+            String email, String phoneNumber, String address, int userType) {
         this.realName = realName;
         this.username = username;
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.userType = userType;
         this.isBanned = false;
+        this.isLocked = false;
     }
+
+    /**
+     * Constructor for the abstract superclass User.
+     * Takes in all required information.
+     * @param realName The real name of the User.
+     * @param username The username of the User.
+     * @param password The password of the User.
+     * @param email The email of the user.
+     * @param phoneNumber The phone number of the User.
+     * @param address The address of the User.
+     */
+    public User(String realName, String username, String password, String email,
+                String phoneNumber, String address, boolean isBanned, boolean isLocked, int type) {
+        this.realName = realName;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.userType = type;
+        this.isBanned = isBanned;
+        this.isLocked = isLocked;
+    }
+
 
     /**
      * Checker if the given credentials match this User's name and password.
@@ -51,18 +79,33 @@ public abstract class User {
     /**
      * Method to lock out a user from login based on attempts.
      */
-    public void ban() {
-        this.isBanned = true;
-    }
-
-    public void unban(User user) {
-        if (user instanceof Admin) {
-            this.isBanned = false;
+    public void ban(User user) {
+        if ((user != null) && (user.getType() >= 3)) {
+            this.isBanned = true;
+            Log.d("Ban", "Time of Ban: " + DateFormat.getDateTimeInstance().format(new Date())
+                    + ", Admin: " + user.getUsername() + ", Banned User: " + this.getUsername());
         }
     }
 
     public boolean isBanned() {
         return this.isBanned;
+    }
+
+    public void lockOut() {
+        this.isLocked = true;
+    }
+
+    public void unblock(User user) {
+        if ((user != null) && (user.getType() >= 3)) {
+            this.isLocked = false;
+            Log.d("Unblock", "Time of Unblock: " + DateFormat.getDateTimeInstance()
+                    .format(new Date()) + ", Admin: " + user.getUsername()
+                    + ", Unblocked User: " + this.getUsername());
+        }
+    }
+
+    public boolean isLocked() {
+        return this.isLocked;
     }
 
     /**
@@ -168,10 +211,10 @@ public abstract class User {
 
     /**
      * Getter for the type of User. Used in the database.
-     * @return The type of User in String format.
+     * @return The type of User in int format.
      */
-    public String type() {
-        return "User";
+    public int getType() {
+        return this.userType;
     }
 
     /**

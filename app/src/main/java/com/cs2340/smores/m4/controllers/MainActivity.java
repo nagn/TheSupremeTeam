@@ -58,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
         String givenPassword = password.getText().toString();
 
         User user = Model.checkLogin(givenUsername, givenPassword);
-        if ((user != null) && (!user.isBanned())) {
+        if ((user != null) && (!user.isLocked())) {
             Model.setUser(user);
             startActivity(new Intent(view.getContext(), HomeActivity.class));
         } else if (updateBadLogins(givenUsername) >= 3) {
-            User bannedUser = Model.getUser(givenUsername);
-            if (bannedUser != null) {
-                bannedUser.ban();
+            User lockedUser = Model.getUser(givenUsername);
+            if (lockedUser != null) {
+                lockedUser.lockOut();
             }
             new Error(view, getResources().getString(R.string.locked_account));
         } else {

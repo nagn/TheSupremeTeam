@@ -47,19 +47,21 @@ public class QualityReportDBHandler extends SQLiteOpenHelper {
     }
 
     void addReport(QualityReport report) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        if (report != null) {
+            SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(KEY_NUMBER, report.getReportNumber());
-        values.put(KEY_REAL_NAME, report.getName());
-        values.put(KEY_DATE, report.getTimeCreated());
-        values.put(KEY_TYPE, report.getWaterType());
-        values.put(KEY_CONDITION, report.getCondition());
-        values.put(KEY_LONGITUDE, report.getLongitude());
-        values.put(KEY_LATITUDE, report.getLatitude());
+            ContentValues values = new ContentValues();
+            values.put(KEY_NUMBER, report.getReportNumber());
+            values.put(KEY_REAL_NAME, report.getName());
+            values.put(KEY_DATE, report.getTimeCreated());
+            values.put(KEY_TYPE, report.getWaterType());
+            values.put(KEY_CONDITION, report.getCondition());
+            values.put(KEY_LONGITUDE, report.getLongitude());
+            values.put(KEY_LATITUDE, report.getLatitude());
 
-        db.insert(TABLE_REPORTS, null, values);
-        db.close();
+            db.insert(TABLE_REPORTS, null, values);
+            db.close();
+        }
     }
 
     public ArrayList<QualityReport> getQualityReports() {
@@ -95,9 +97,11 @@ public class QualityReportDBHandler extends SQLiteOpenHelper {
     }
 
     void removeReport(QualityReport report) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_REPORTS, KEY_NUMBER + " = ?",
-                new String[] { String.valueOf(report.getReportNumber()) });
-        db.close();
+        if (report != null) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.delete(TABLE_REPORTS, KEY_NUMBER + " = ?",
+                    new String[]{String.valueOf(report.getReportNumber())});
+            db.close();
+        }
     }
 }

@@ -19,6 +19,7 @@ public abstract class Report {
     private String name;
     private double longitude;
     private double latitude;
+    public static int count = 0;
 
 
     Report(double longitude, double latitude) {

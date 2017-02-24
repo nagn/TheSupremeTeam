@@ -2,7 +2,9 @@ package com.cs2340.smores.m4.model;
 
 import android.util.Log;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * The model class containing all hierarchical data for the app.
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 
 public class Model {
 
-    public static Log log; //TODO: implement the log for the app!
+    //TODO: implement the log for the app!
     public static User user;
     public static ArrayList<User> users;
     public static ArrayList<QualityReport> qualityReports;
@@ -34,6 +36,10 @@ public class Model {
         userDBHandler.removeUser(user);
     }
 
+    public static void updateUser(User user, String oldUsername) {
+        userDBHandler.updateUser(user, oldUsername);
+    }
+
     public static User getUser(String username) {
         for (User user : users) {
             if (user.getUsername().equals(username)) {
@@ -44,11 +50,15 @@ public class Model {
     }
 
     public static User checkLogin(String username, String password) {
+        String logMessage = "Time of Login Attempt: " + DateFormat.getDateTimeInstance()
+                .format(new Date()) + ", User: " + username + ", Status: ";
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).unlock(username, password)) {
+                Log.d("Login", logMessage + "Success");
                 return users.get(i);
             }
         }
+        Log.d("Login", logMessage + ((exists(username)) ? "Bad Password" : "Unknown ID"));
         return null;
     }
 
@@ -75,22 +85,36 @@ public class Model {
     }
 
     public static void addQualityReport(QualityReport report) {
-        qualityReports.add(report);
-        qualityReportDBHandler.addReport(report);
+        if (report != null) {
+            qualityReports.add(report);
+            qualityReportDBHandler.addReport(report);
+        }
     }
 
     public static void removeQualityReport(QualityReport report) {
-        qualityReports.remove(report);
-        qualityReportDBHandler.removeReport(report);
+        if ((report != null) && (user != null) && (user.getType() >= 2)) {
+            Log.d("Deleted Report", "Time of Deletion: " + DateFormat.getDateTimeInstance()
+                    .format(new Date()) + ", Admin: " + user.getUsername()
+                    + ", Report Number: " + report.getReportNumber());
+            qualityReports.remove(report);
+            qualityReportDBHandler.removeReport(report);
+        }
     }
 
     public static void addPurityReport(PurityReport report) {
-        purityReports.add(report);
-        purityReportDBHandler.addReport(report);
+        if (report != null) {
+            purityReports.add(report);
+            purityReportDBHandler.addReport(report);
+        }
     }
 
-    public static void removePurityReport(PurityReport report) {
-        purityReports.remove(report);
-        purityReportDBHandler.removeReport(report);
+    public static void removePurityReport(PurityReport report, User user) {
+        if ((report != null) && (user != null) && (user.getType() >= 2)) {
+            Log.d("Deleted Report", "Time of Deletion: " + DateFormat.getDateTimeInstance()
+                    .format(new Date()) + ", Admin: " + user.getUsername()
+                    + ", Report Number: " + report.getReportNumber());
+            purityReports.remove(report);
+            purityReportDBHandler.removeReport(report);
+        }
     }
 }

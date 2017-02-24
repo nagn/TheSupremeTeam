@@ -6,7 +6,6 @@ package com.cs2340.smores.m4.model;
 
 public class QualityReport extends Report {
 
-    private static int count = 0;
     private int reportNumber;
     private String waterType;
     private String condition;
@@ -17,7 +16,7 @@ public class QualityReport extends Report {
 
     public QualityReport(double longitude, double latitude, int type, int condition) {
         super(longitude, latitude);
-        this.reportNumber = ++count;
+        this.reportNumber = ++Report.count;
         this.waterType = waterTypes[type];
         this.condition = waterConditions[condition];
     }

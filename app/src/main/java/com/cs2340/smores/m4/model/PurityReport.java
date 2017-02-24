@@ -1,12 +1,12 @@
 package com.cs2340.smores.m4.model;
 
 /**
- * Created by smores on 2/22/17.
+ * Report descriptive of the purity of water in an area at a given time.
  */
 
 public class PurityReport extends Report {
 
-    private static int count = 0;
+
     private int reportNumber;
     private int virusPPM;
     private int contaminantPPM;
@@ -16,7 +16,7 @@ public class PurityReport extends Report {
     public PurityReport(double longitude, double latitude,
                         int virusPPM, int contaminantPPM, int condition) {
         super(longitude, latitude);
-        this.reportNumber = ++count;
+        this.reportNumber = ++Report.count;
         this.virusPPM = virusPPM;
         this.contaminantPPM = contaminantPPM;
         this.condition = conditions[condition];

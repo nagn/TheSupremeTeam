@@ -6,12 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
-import com.cs2340.smores.m4.model.Admin;
-import com.cs2340.smores.m4.model.Manager;
 import com.cs2340.smores.m4.model.Model;
 import com.cs2340.smores.m4.R;
-import com.cs2340.smores.m4.model.User;
-import com.cs2340.smores.m4.model.Worker;
 
 /**
  * The class for the home page and standard activities of the app.
@@ -38,7 +34,7 @@ public class HomeActivity extends AppCompatActivity {
 
 
     public void onMakeReport(View view) {
-        startActivity(new Intent(view.getContext(), qualityReportActivity.class));
+        startActivity(new Intent(view.getContext(), QualityReportActivity.class));
     }
 
     public void onEditAccount(View view) {

@@ -72,7 +72,7 @@ public class EditAccountActivity extends AppCompatActivity {
 
             new Error(view, errorMessage);
         } else {
-            Model.removeUser(user);
+            String oldUsername = user.getUsername();
 
             if ((oldPassword.length() > 0) || (newPassword1.length() > 0)
                     || (newPassword2.length() > 0)) {
