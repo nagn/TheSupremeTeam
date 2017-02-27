@@ -32,7 +32,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng latLng = Report.locations.get("Atlanta");
         for (SourceReport report : Model.sourceReports) {
             latLng = Report.locations.get(report.getLocation());
-            googleMap.addMarker(new MarkerOptions().position(latLng)
+            googleMap.addMarker(new MarkerOptions().position(new LatLng(latLng.latitude
+                    + Math.random() * 0.1, latLng.longitude + Math.random() * 0.1))
                     .title(report.getWaterType() + " / " + report.getCondition()));
         }
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
