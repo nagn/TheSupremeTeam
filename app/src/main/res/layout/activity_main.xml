@@ -18,18 +18,18 @@
         android:text="Registration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
+        android:id="@+id/onRegister"
         android:onClick="onRegister"
         android:layout_marginEnd="30dp"
-        android:layout_alignBaseline="@+id/button"
-        android:layout_alignBottom="@+id/button"
+        android:layout_alignBaseline="@+id/onLogin"
+        android:layout_alignBottom="@+id/onLogin"
         android:layout_alignParentEnd="true" />
 
     <Button
         android:text="Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button"
+        android:id="@+id/onLogin"
         android:onClick="onLogin"
         android:layout_marginStart="37dp"
         android:layout_marginBottom="33dp"
@@ -39,10 +39,9 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_marginBottom="37dp"
-        android:layout_alignBottom="@+id/button2"
-        android:layout_alignParentStart="true"
-        android:layout_height="100dp">
+        android:layout_height="100dp"
+        android:layout_above="@+id/onRegister"
+        android:layout_alignParentStart="true">
 
         <EditText
             android:layout_width="match_parent"

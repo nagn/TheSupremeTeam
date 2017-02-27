@@ -13,8 +13,16 @@ import com.cs2340.smores.m4.R;
 
 class Error {
 
+    /**
+     * Constructor for a popup Error message. Used universally across the app. When
+     * supplied with a message and a view, a popup Error message is supplied with the matching
+     * info in the correct position, dismissable by the Button on the bottom of the dialog box.
+     *
+     * @param view The view of the Button calling the error.
+     * @param errorMessage The message to display as the error message.
+     */
     Error(View view, String errorMessage) {
-        AlertDialog.Builder adBuilder = new AlertDialog.Builder(view.getContext());
+        AlertDialog.Builder adBuilder = new AlertDialog.Builder(view.getRootView().getContext());
         adBuilder.setView(R.layout.popup);
         final AlertDialog alertDialog = adBuilder.create();
         alertDialog.show();

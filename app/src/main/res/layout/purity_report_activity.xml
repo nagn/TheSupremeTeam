@@ -26,6 +26,23 @@
         android:layout_height="20dp" />
 
     <TextView
+        android:text="  Pick Location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/location"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/locationSpinner" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <TextView
         android:text="  Virus PPM"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +78,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="60dp" />
 
     <LinearLayout
         android:orientation="horizontal"

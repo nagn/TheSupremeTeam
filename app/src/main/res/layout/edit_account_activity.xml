@@ -97,18 +97,6 @@
             android:id="@+id/editPassword2" />
 
         <TextView
-            android:text="User Type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/userType"
-            android:textSize="18sp" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:id="@+id/userTypeSpinner" />
-
-        <TextView
             android:text="Email Address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

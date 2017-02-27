@@ -9,17 +9,17 @@
         android:layout_height="15dp" />
 
     <TextView
-        android:text="  Pick Water Quality"
+        android:text="  Pick Water Type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/waterQuality"
+        android:id="@+id/waterType"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="18sp" />
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/qualitySpinner" />
+        android:id="@+id/typeSpinner" />
 
     <Space
         android:layout_width="match_parent"
@@ -40,7 +40,24 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="300dp" />
+        android:layout_height="15dp" />
+
+    <TextView
+        android:text="  Pick Location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/location"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/locationSpinner" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="175dp" />
 
     <LinearLayout
         android:orientation="horizontal"

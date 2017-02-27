@@ -9,13 +9,16 @@ import android.widget.EditText;
 import java.util.HashMap;
 
 import com.cs2340.smores.m4.R;
+import com.cs2340.smores.m4.model.LogDBHandler;
 import com.cs2340.smores.m4.model.Model;
 import com.cs2340.smores.m4.model.PurityReportDBHandler;
+import com.cs2340.smores.m4.model.SourceReportDBHandler;
 import com.cs2340.smores.m4.model.User;
-import com.cs2340.smores.m4.model.QualityReportDBHandler;
 import com.cs2340.smores.m4.model.UserDBHandler;
 
-//TODO: Only login when online (register, too)
+/**
+ * Both the welcome page and the login screen of the App. Registration is also available.
+ */
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,15 +31,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Model.userDBHandler = new UserDBHandler(getApplicationContext());
-        Model.qualityReportDBHandler = new QualityReportDBHandler(getApplicationContext());
+        Model.sourceReportDBHandler = new SourceReportDBHandler(getApplicationContext());
         Model.purityReportDBHandler = new PurityReportDBHandler(getApplicationContext());
+        Model.logDBHandler = new LogDBHandler(getApplicationContext());
         Model.users = Model.userDBHandler.getUsers();
-        Model.qualityReports = Model.qualityReportDBHandler.getQualityReports();
+        Model.sourceReports = Model.sourceReportDBHandler.getQualityReports();
         Model.purityReports = Model.purityReportDBHandler.getPurityReports();
+        Model.log = Model.logDBHandler.getLog();
         badLogins = new HashMap<>();
 
-        username = (EditText) findViewById(R.id.editText);
-        password = (EditText) findViewById(R.id.editText2);
+        username = (EditText) findViewById(R.id.editUsername);
+        password = (EditText) findViewById(R.id.editPassword);
 
         username.setHint("Username");
         password.setHint("Password");
@@ -49,7 +54,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Brings the User to the login page when clicked.
+     * Attempts to log the User into the app when the Login Button is pressed.
+     * If the given username exist and a login has been attempted at least 3 times during
+     * the current login session, the User associated with the given username is locked out
+     * of login until an Admin returns the privilege to them.
      *
      * @param view The default parameter for an onClick custom method.
      */
@@ -61,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         if ((user != null) && (!user.isLocked())) {
             Model.setUser(user);
             startActivity(new Intent(view.getContext(), HomeActivity.class));
+            username.setText("");
+            password.setText("");
+            finish();
         } else if (updateBadLogins(givenUsername) >= 3) {
             User lockedUser = Model.getUser(givenUsername);
             if (lockedUser != null) {
@@ -81,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(view.getContext(), RegisterActivity.class));
     }
 
+    /**
+     * Method to update the HashMap of usernames to keep bad login info.
+     *
+     * @param username The username being used as login info.
+     * @return The number of logins attempted with the given username if it exists in the system.
+     */
     private int updateBadLogins(String username) {
         if (Model.exists(username)) {
             badLogins.put(username, (badLogins.get(username) == null)

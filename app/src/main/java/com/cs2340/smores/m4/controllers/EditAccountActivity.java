@@ -43,6 +43,15 @@ public class EditAccountActivity extends AppCompatActivity {
         editAddress = (EditText) this.findViewById(R.id.editHomeAddress);
     }
 
+    /**
+     * onClick method to check the edits attempted to be made to the User's account.
+     * If a parameter is empty, nothing is changed. If new information is supplied,
+     * then it is checked against the same standards applied in the registration process.
+     * If any information is badly formatted, an error is supplied. If all information
+     * is correctly formatted, the User is updated and then returned to the home page of the app.
+     *
+     * @param view The Button's view.
+     */
     public void onEditAccount(View view) {
         String realName = editRealName.getText().toString();
         String username = editUsername.getText().toString();
@@ -94,13 +103,18 @@ public class EditAccountActivity extends AppCompatActivity {
                 user.setAddress(address);
             }
 
-            Model.addUser(user);
-            Model.setUser(user);
+            Model.updateUser(user, oldUsername);
 
             super.onBackPressed();
         }
     }
 
+    /**
+     * Standard return method. Cancels the editing process,
+     * changes no User information, and goes back to the home screen of the app.
+     *
+     * @param view the Button's view.
+     */
     public void onCancelEditing(View view) {
         super.onBackPressed();
     }

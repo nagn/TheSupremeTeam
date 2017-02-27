@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
             } else if (!password1.equals(password2)) {
                 errorMessage = res.getString(R.string.password_mismatch);
             } else {
-                errorMessage = res.getString(R.string.missing_info);
+                errorMessage = res.getString(R.string.general_missing_info);
             }
 
             new Error(view, errorMessage);

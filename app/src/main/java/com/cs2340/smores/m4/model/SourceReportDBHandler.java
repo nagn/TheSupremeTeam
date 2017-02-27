@@ -9,14 +9,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 /**
- * Database handler to store QualityReport data between app sessions.
+ * Database handler to store SourceReport data between app sessions.
  */
 
-public class QualityReportDBHandler extends SQLiteOpenHelper {
+public class SourceReportDBHandler extends SQLiteOpenHelper {
 
 
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "qualityReportDatabase";
+    private static final String DATABASE_NAME = "sourceReportDatabase";
     private static final String TABLE_REPORTS = "reports";
 
     private static final String KEY_NUMBER = "reportNumber";
@@ -24,10 +24,14 @@ public class QualityReportDBHandler extends SQLiteOpenHelper {
     private static final String KEY_DATE = "dateCreated";
     private static final String KEY_TYPE = "waterType";
     private static final String KEY_CONDITION = "condition";
-    private static final String KEY_LONGITUDE = "longitude";
-    private static final String KEY_LATITUDE = "latitude";
+    private static final String KEY_LOCATION = "location";
 
-    public QualityReportDBHandler(Context context) {
+    /**
+     * Constructor for a new Source Report Database Handler. Uses the overall context of the app.
+     *
+     * @param context The context of the application.
+     */
+    public SourceReportDBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -36,7 +40,7 @@ public class QualityReportDBHandler extends SQLiteOpenHelper {
         String CREATE_USERS_TABLE = "CREATE TABLE " + TABLE_REPORTS + "("
                 + KEY_NUMBER + " INTEGER PRIMARY KEY," + KEY_REAL_NAME + " TEXT,"
                 + KEY_DATE + " TEXT," + KEY_TYPE + " TEXT," + KEY_CONDITION + " TEXT,"
-                + KEY_LONGITUDE + " DOUBLE," + KEY_LATITUDE + " DOUBLE" + ")";
+                + KEY_LOCATION + " TEXT" + ")";
         db.execSQL(CREATE_USERS_TABLE);
     }
 
@@ -46,7 +50,12 @@ public class QualityReportDBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    void addReport(QualityReport report) {
+    /**
+     * Adds a Source Report to the database.
+     *
+     * @param report The Source Report to add to the database.
+     */
+    void addReport(SourceReport report) {
         if (report != null) {
             SQLiteDatabase db = this.getWritableDatabase();
 
@@ -56,16 +65,20 @@ public class QualityReportDBHandler extends SQLiteOpenHelper {
             values.put(KEY_DATE, report.getTimeCreated());
             values.put(KEY_TYPE, report.getWaterType());
             values.put(KEY_CONDITION, report.getCondition());
-            values.put(KEY_LONGITUDE, report.getLongitude());
-            values.put(KEY_LATITUDE, report.getLatitude());
+            values.put(KEY_LOCATION, report.getLocation());
 
             db.insert(TABLE_REPORTS, null, values);
             db.close();
         }
     }
 
-    public ArrayList<QualityReport> getQualityReports() {
-        ArrayList<QualityReport> qualityReports = new ArrayList<>();
+    /**
+     * Getter for all of the Source Reports currently in the system.
+     *
+     * @return An ArrayList of all of the Source Reports in the database.
+     */
+    public ArrayList<SourceReport> getQualityReports() {
+        ArrayList<SourceReport> sourceReports = new ArrayList<>();
         String selectQuery = "SELECT  * FROM " + TABLE_REPORTS;
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -73,30 +86,29 @@ public class QualityReportDBHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             int number;
-            String name;
-            String timeCreated;
-            String type;
-            String condition;
-            double longitude;
-            double latitude;
+            String name, timeCreated, type, condition, location;
             do {
                 number = Integer.parseInt(cursor.getString(0));
                 name = cursor.getString(1);
                 timeCreated = cursor.getString(2);
                 type = cursor.getString(3);
                 condition = cursor.getString(4);
-                longitude = Double.parseDouble(cursor.getString(5));
-                latitude = Double.parseDouble(cursor.getString(6));
-                qualityReports.add(new QualityReport(number, name, timeCreated,
-                        longitude, latitude, type, condition));
+                location = cursor.getString(5);
+                sourceReports.add(new SourceReport(number, name, timeCreated,
+                        location, type, condition));
             } while (cursor.moveToNext());
         }
         cursor.close();
 
-        return qualityReports;
+        return sourceReports;
     }
 
-    void removeReport(QualityReport report) {
+    /**
+     * Removes the Source Report with a matching report number from the database.
+     *
+     * @param report The Source Report to remove from the database.
+     */
+    void removeReport(SourceReport report) {
         if (report != null) {
             SQLiteDatabase db = this.getWritableDatabase();
             db.delete(TABLE_REPORTS, KEY_NUMBER + " = ?",
