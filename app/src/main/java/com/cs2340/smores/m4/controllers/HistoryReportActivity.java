@@ -1,6 +1,5 @@
 package com.cs2340.smores.m4.controllers;
 
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +14,6 @@ import com.cs2340.smores.m4.model.Model;
 import com.cs2340.smores.m4.model.PurityReport;
 import com.cs2340.smores.m4.model.Report;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.PointsGraphSeries;
 
