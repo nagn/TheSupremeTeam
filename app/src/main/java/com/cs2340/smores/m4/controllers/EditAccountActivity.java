@@ -41,6 +41,12 @@ public class EditAccountActivity extends AppCompatActivity {
         editEmailAddress = (EditText) this.findViewById(R.id.editEmailAddress);
         editPhoneNumber = (EditText) this.findViewById(R.id.editPhoneNumber);
         editAddress = (EditText) this.findViewById(R.id.editHomeAddress);
+
+        editRealName.setText(user.getRealName());
+        editUsername.setText(user.getUsername());
+        editEmailAddress.setText(user.getEmail());
+        editPhoneNumber.setText(user.getPhoneNumber());
+        editAddress.setText(user.getAddress());
     }
 
     /**
@@ -66,7 +72,10 @@ public class EditAccountActivity extends AppCompatActivity {
                 || (newPassword2.length() > 0)) && (!(newPassword1.equals(newPassword2))
                 || (Model.checkLogin(user.getUsername(), oldPassword) == null)))
                 || ((username.length() > 0)
-                && ((!Model.isValid(username)) || (!Model.isNew(username))))) {
+                && ((!Model.isValid(username)) || (!Model.isNew(username))))
+                || ((email.length() == 0) || (phoneNumber.length() == 0)
+                || (address.length() == 0) || (realName.length() == 0)
+                || (username.length() == 0))) {
             Resources res = getResources();
             String errorMessage;
             if (!(newPassword1.equals(newPassword2))) {
@@ -75,8 +84,10 @@ public class EditAccountActivity extends AppCompatActivity {
                 errorMessage = res.getString(R.string.wrong_old_password);
             } else if (!Model.isNew(username)) {
                 errorMessage = res.getString(R.string.username_taken);
-            } else {
+            } else if (!Model.isValid(username)) {
                 errorMessage = res.getString(R.string.invalid_username);
+            } else {
+                errorMessage = getString(R.string.general_missing_info);
             }
 
             new Error(view, errorMessage);
@@ -87,22 +98,11 @@ public class EditAccountActivity extends AppCompatActivity {
                     || (newPassword2.length() > 0)) {
                 user.setPassword(oldPassword, newPassword1);
             }
-            if (realName.length() > 0) {
-                user.setRealName(realName);
-            }
-            if (username.length() > 0) {
-                user.setUsername(username);
-            }
-            if (email.length() > 0) {
-                user.setEmail(email);
-            }
-            if (phoneNumber.length() > 0) {
-                user.setPhoneNumber(phoneNumber);
-            }
-            if (address.length() > 0) {
-                user.setAddress(address);
-            }
-
+            user.setRealName(realName);
+            user.setUsername(username);
+            user.setEmail(email);
+            user.setPhoneNumber(phoneNumber);
+            user.setAddress(address);
             Model.updateUser(user, oldUsername);
 
             super.onBackPressed();

@@ -175,6 +175,8 @@ public class User {
         this.email = email;
     }
 
+
+
     /**
      * Setter for the phone number of the User.
      *
@@ -216,7 +218,7 @@ public class User {
      *
      * @return The User's password.
      */
-    String getPassword() {
+    public String getPassword() {
         return this.password;
     }
 
@@ -225,7 +227,7 @@ public class User {
      *
      * @return The User's current email address.
      */
-    String getEmail() {
+    public String getEmail() {
         return this.email;
     }
 
@@ -234,7 +236,7 @@ public class User {
      *
      * @return The User's current phone number.
      */
-    String getPhoneNumber() {
+    public String getPhoneNumber() {
         return this.phoneNumber;
     }
 
@@ -243,7 +245,7 @@ public class User {
      *
      * @return The User's current address.
      */
-    String getAddress() {
+    public String getAddress() {
         return this.address;
     }
 

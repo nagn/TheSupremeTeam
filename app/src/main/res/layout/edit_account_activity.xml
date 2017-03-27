@@ -10,20 +10,6 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
-        <TextView
-            android:text="@string/account_editing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="6dp"
-            android:id="@+id/accountEditing"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="20sp"
-            android:textAlignment="viewStart" />
-
-        <Space
-            android:layout_width="match_parent"
             android:layout_height="20dp" />
 
         <TextView
