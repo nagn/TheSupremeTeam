@@ -30,7 +30,7 @@ public class HistoryReportActivity extends AppCompatActivity {
     private GraphView graph;
     private List<List<Integer>> months;
     private boolean isReady;
-    PointsGraphSeries<DataPoint> series;
+    private PointsGraphSeries<DataPoint> series;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -132,7 +132,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:text="Register"
+                android:text="@string/register_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/register"
@@ -140,7 +140,7 @@
                 android:layout_weight="1" />
 
             <Button
-                android:text="Cancel"
+                android:text="@string/cancel_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cancelRegister"

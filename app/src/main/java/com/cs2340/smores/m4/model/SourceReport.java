@@ -6,8 +6,8 @@ package com.cs2340.smores.m4.model;
 
 public class SourceReport extends Report {
 
-    private String waterType;
-    private String condition;
+    private final String waterType;
+    private final String condition;
     public static final String[] waterTypes =
             new String[]{"Bottled", "Well", "Stream", "Lake", "Spring", "Other"};
     public static final String[] waterConditions =

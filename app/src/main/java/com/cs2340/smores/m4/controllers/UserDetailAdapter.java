@@ -19,7 +19,7 @@ import com.cs2340.smores.m4.model.User;
 
 class UserDetailAdapter extends BaseAdapter implements ListAdapter {
 
-    private Context context;
+    private final Context context;
 
     /**
      * Standard constructor for the custom User detail Adapter. Uses most of the
@@ -52,7 +52,7 @@ class UserDetailAdapter extends BaseAdapter implements ListAdapter {
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.user_detail_list_item, null);
+            view = inflater.inflate(R.layout.user_detail_list_item, parent);
         }
 
         final User user = Model.users.get(position);

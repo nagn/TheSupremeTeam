@@ -12,11 +12,7 @@ import android.widget.TextView;
 import com.cs2340.smores.m4.R;
 import com.cs2340.smores.m4.model.Model;
 import com.cs2340.smores.m4.model.PurityReport;
-import com.cs2340.smores.m4.model.Report;
-import com.cs2340.smores.m4.model.SourceReport;
-import com.cs2340.smores.m4.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,8 +21,8 @@ import java.util.List;
 
 class PurityReportDetailAdapter extends BaseAdapter implements ListAdapter {
 
-    private Context context;
-    private List data;
+    private final Context context;
+    private final List data;
 
     /**
      * Standard constructor for the custom Purity Report detail Adapter. Uses most of the
@@ -61,7 +57,7 @@ class PurityReportDetailAdapter extends BaseAdapter implements ListAdapter {
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.report_detail_list_item, null);
+            view = inflater.inflate(R.layout.report_detail_list_item, parent);
         }
 
         final PurityReport report = (PurityReport) getItem(position);

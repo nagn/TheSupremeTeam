@@ -72,7 +72,7 @@ public class EditAccountActivity extends AppCompatActivity {
                 || (newPassword2.length() > 0)) && (!(newPassword1.equals(newPassword2))
                 || (Model.checkLogin(user.getUsername(), oldPassword) == null)))
                 || ((username.length() > 0)
-                && ((!Model.isValid(username)) || (!Model.isNew(username))))
+                && ((!Model.isValid(username)) || (!Model.exists(username))))
                 || ((email.length() == 0) || (phoneNumber.length() == 0)
                 || (address.length() == 0) || (realName.length() == 0)
                 || (username.length() == 0))) {
@@ -82,7 +82,7 @@ public class EditAccountActivity extends AppCompatActivity {
                 errorMessage = res.getString(R.string.new_password_mismatch);
             } else if (Model.checkLogin(user.getUsername(), oldPassword) == null) {
                 errorMessage = res.getString(R.string.wrong_old_password);
-            } else if (!Model.isNew(username)) {
+            } else if (Model.exists(username)) {
                 errorMessage = res.getString(R.string.username_taken);
             } else if (!Model.isValid(username)) {
                 errorMessage = res.getString(R.string.invalid_username);

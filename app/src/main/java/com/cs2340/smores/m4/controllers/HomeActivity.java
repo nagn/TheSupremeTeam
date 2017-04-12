@@ -16,7 +16,7 @@ import com.cs2340.smores.m4.R;
 
 public class HomeActivity extends AppCompatActivity {
 
-    TextView welcome;
+    private TextView welcome;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

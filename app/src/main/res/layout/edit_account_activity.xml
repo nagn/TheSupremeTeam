@@ -13,7 +13,7 @@
             android:layout_height="20dp" />
 
         <TextView
-            android:text="Real Name"
+            android:text="@string/real_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/realName"
@@ -27,7 +27,7 @@
             android:id="@+id/editRealName" />
 
         <TextView
-            android:text="Username"
+            android:text="@string/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/username"
@@ -41,7 +41,7 @@
             android:id="@+id/editUsername" />
 
         <TextView
-            android:text="Old Password"
+            android:text="@string/old_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/oldPassword"
@@ -55,7 +55,7 @@
             android:id="@+id/editOldPassword" />
 
         <TextView
-            android:text="New Password"
+            android:text="@string/new_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/password1"
@@ -69,7 +69,7 @@
             android:id="@+id/editPassword1" />
 
         <TextView
-            android:text="Confirm Password"
+            android:text="@string/confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/password2"
@@ -83,7 +83,7 @@
             android:id="@+id/editPassword2" />
 
         <TextView
-            android:text="Email Address"
+            android:text="@string/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/emailAddress"
@@ -97,7 +97,7 @@
             android:id="@+id/editEmailAddress" />
 
         <TextView
-            android:text="Phone Number"
+            android:text="@string/phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/phoneNumber"
@@ -111,7 +111,7 @@
             android:id="@+id/editPhoneNumber" />
 
         <TextView
-            android:text="Home Address"
+            android:text="@string/home_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/homeAddress"
@@ -134,19 +134,21 @@
             android:layout_height="match_parent">
 
             <Button
-                android:text="Register"
+                android:text="@string/register_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/register"
                 android:onClick="onEditAccount"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_weight="1" />
 
             <Button
-                android:text="Cancel"
+                android:text="@string/cancel_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cancelRegister"
                 android:onClick="onCancelEditing"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_weight="1" />
 
         </LinearLayout>

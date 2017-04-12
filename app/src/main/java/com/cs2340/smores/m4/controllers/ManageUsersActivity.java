@@ -30,10 +30,8 @@ public class ManageUsersActivity extends AppCompatActivity {
     /**
      * Standard method to return the User to the home page of the app when
      * they are done managing all current Users in the system.
-     *
-     * @param view The Button's view.
      */
-    public void onReturn(View view) {
+    public void onReturn() {
         super.onBackPressed();
     }
 }

@@ -6,9 +6,9 @@ package com.cs2340.smores.m4.model;
 
 public class PurityReport extends Report {
 
-    private int virusPPM;
-    private int contaminantPPM;
-    private String condition;
+    private final int virusPPM;
+    private final int contaminantPPM;
+    private final String condition;
     public static final String[] conditions = new String[]{"Safe", "Treatable", "Unsafe"};
     public static final String[] virusOrContaminant = new String[]{"Virus", "Contaminant"};
 

@@ -15,7 +15,7 @@ public class User {
 
     private String realName, username, password, email, phoneNumber, address;
     private boolean isBanned, isLocked;
-    private int userType;
+    private final int userType;
 
     public final static String[] userTypes = new String[]{"Customer", "Worker", "Manager", "Admin"};
 
@@ -158,12 +158,10 @@ public class User {
      * @param oldPassword The current password of the User.
      * @param newPassword The new password for the User to use.
      */
-    public boolean setPassword(String oldPassword, String newPassword) {
+    public void setPassword(String oldPassword, String newPassword) {
         if (this.password.equals(oldPassword)) {
             this.password = newPassword;
-            return true;
         }
-        return false;
     }
 
     /**

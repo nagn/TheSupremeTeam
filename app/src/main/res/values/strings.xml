@@ -2,6 +2,7 @@
     <string name="app_name">Water Finder</string>
     <string name="register_activity_name">Register</string>
     <string name="home_activity_name">Home</string>
+    <string name="title_activity_maps">Map</string>
     <string name="edit_account_activity_name">Edit Account</string>
     <string name="source_report_activity_name">Make A Source Report</string>
     <string name="purity_report_activity_name">Make A Purity Report</string>
@@ -15,6 +16,36 @@
     <string name="register_button">Register</string>
     <string name="submit_button">Submit</string>
     <string name="delete_button">Delete</string>
+    <string name="source_reports">Source Reports</string>
+    <string name="choose_location">Choose Location</string>
+    <string name="pick_water_condition">Pick Water Condition</string>
+    <string name="pick_water_type">Pick Water Type</string>
+    <string name="real_name">Real Name</string>
+    <string name="close">Close</string>
+    <string name="login">Login</string>
+    <string name="make_source_report">Make Source Report</string>
+    <string name="view_logs">View Logs</string>
+    <string name="administrate_users">Administrate Users</string>
+    <string name="edit_account">Edit Account</string>
+    <string name="logout">Logout</string>
+    <string name="manage_reports">Manage Reports</string>
+    <string name="historical_reports">Historical Reports</string>
+    <string name="view_availability">View Availability</string>
+    <string name="purity_reports">Purity Reports</string>
+    <string name="unblock">Unblock</string>
+    <string name="username">Username</string>
+    <string name="make_purity_report">Make Purity Reports</string>
+    <string name="ban">Ban</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="choose_year">Choose Year</string>
+    <string name="virus_ppm">Virus PPM</string>
+    <string name="email">Email Address</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="home_address">Home Address</string>
+    <string name="contaminant_ppm">Contaminant PPM</string>
     <string name="account_not_found">The login info that you specified does not match any existing accounts. Please try again.</string>
     <string name="password_mismatch">Your passwords do not match. Check that you have entered both correctly.</string>
     <string name="locked_account">That username has been used incorrectly at least 3 times, so the matching account was locked. Please contact an administrator to resolve the issue.</string>
@@ -23,11 +54,10 @@
     <string name="invalid_username">That username is invalid.  Please only use letters and numbers.</string>
     <string name="username_taken">An account with that username already exists. Please choose a different one.</string>
     <string name="bad_PPMs">At least one of your PPM values is not an integer. Please reformat them.</string>
-    <string name="not_finished">This activity has not been finished. Try again later.</string>
     <string name="banned">You have been permanently banned from submitting reports. However, you can still view water availability.</string>
     <string name="wrong_old_password">Your old password is incorrect. Either remove it from the entry field to leave your old password or check that it is correct.</string>
     <string name="new_password_mismatch">Your new passwords do not match. Either remove them to leave your old password or check that they match.</string>
     <string name="account_editing">To edit your account, fill in the below fields. To leave a field unchanged, put no information in the field.</string>
-    <string name="title_activity_maps">Map</string>
+
     <string name="google_maps_key">AIzaSyARRPHi9KyBwy8JF5ApF6gXlyLsSpDTOqY</string>
 </resources>

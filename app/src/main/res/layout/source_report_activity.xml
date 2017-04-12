@@ -9,7 +9,7 @@
         android:layout_height="15dp" />
 
     <TextView
-        android:text="  Pick Water Type"
+        android:text="@string/pick_water_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/waterType"
@@ -26,7 +26,7 @@
         android:layout_height="15dp" />
 
     <TextView
-        android:text="  Pick Water Condition"
+        android:text="@string/pick_water_condition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/waterCondition"
@@ -43,7 +43,7 @@
         android:layout_height="15dp" />
 
     <TextView
-        android:text="  Pick Location"
+        android:text="@string/choose_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/location"
@@ -65,19 +65,21 @@
         android:layout_height="match_parent">
 
         <Button
-            android:text="Submit"
+            android:text="@string/submit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/submitReport"
             android:onClick="onSubmitReport"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_weight="1" />
 
         <Button
-            android:text="Cancel"
+            android:text="@string/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/cancelReport"
             android:onClick="onCancelReport"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_weight="1" />
     </LinearLayout>
 </LinearLayout>

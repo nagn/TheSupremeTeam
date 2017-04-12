@@ -21,8 +21,8 @@ import java.util.List;
 
 class SourceReportDetailAdapter extends BaseAdapter implements ListAdapter {
 
-    private Context context;
-    private List data;
+    private final Context context;
+    private final List data;
 
     /**
      * Standard constructor for the custom Source Report detail Adapter. Uses most of the
@@ -57,7 +57,7 @@ class SourceReportDetailAdapter extends BaseAdapter implements ListAdapter {
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.report_detail_list_item, null);
+            view = inflater.inflate(R.layout.report_detail_list_item, parent);
         }
 
         final SourceReport report = (SourceReport) getItem(position);

@@ -14,15 +14,16 @@ import java.util.HashMap;
 public abstract class Report {
 
     private final static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-    private String timeCreated, name, location;
-    private int reportNumber;
+    private final String timeCreated, name, location;
+    private final int reportNumber;
     private static int count = 0;
-    public static HashMap<String, LatLng> locations = new HashMap<>();
+    public final static HashMap<String, LatLng> locations;
     public static final String[] years = new String[]{"2010", "2011", "2012", "2013", "2014",
             "2015", "2016", "2017", "2018", "2019", "2020"};
 
     //Adds all of the current known locations to te locations HashMap on opening the app.
     static {
+        locations = new HashMap<>();
         locations.put("Atlanta", new LatLng(33.7490, -84.3880));
         locations.put("New York City", new LatLng(40.7128, -74.0059));
         locations.put("Boston", new LatLng(42.3601, -71.0589));

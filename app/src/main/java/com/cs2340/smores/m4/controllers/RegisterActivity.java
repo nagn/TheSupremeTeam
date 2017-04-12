@@ -1,5 +1,6 @@
 package com.cs2340.smores.m4.controllers;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ import com.cs2340.smores.m4.model.User;
  * The activity class for the registration page and process of the app.
  */
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends Activity {
 
     private EditText editRealName;
     private EditText editUsername;
@@ -66,11 +67,11 @@ public class RegisterActivity extends AppCompatActivity {
         if (!(password1.equals(password2))
                 || (realName.length() == 0) || (username.length() == 0)
                 || (password1.length() == 0) || (password2.length() == 0)
-                || (!Model.isValid(username)) || (!Model.isNew(username))) {
+                || (!Model.isValid(username)) || (Model.exists(username))) {
             Resources res = getResources();
             String errorMessage;
 
-            if (!Model.isNew(username)) {
+            if (Model.exists(username)) {
                 errorMessage = res.getString(R.string.username_taken);
             } else if (!Model.isValid(username)) {
                 errorMessage = res.getString(R.string.invalid_username);
@@ -99,7 +100,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     /**
-     * Cancels the registration process and brings the User back to the main page of the app.
+     * Cancels the registration process and brings the User back
+     * to the main page of the app.
      *
      * @param view The default parameter for an onClick custom method.
      */

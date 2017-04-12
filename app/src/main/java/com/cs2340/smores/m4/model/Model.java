@@ -52,7 +52,7 @@ public class Model {
                     + DateFormat.getDateTimeInstance().format(new Date()) + ", Admin: "
                     + admin.getUsername() + ", Deleted User: " + user.getUsername());
             users.remove(user);
-            userDBHandler.removeUser(user);
+//            userDBHandler.removeUser(user);
         }
     }
 
@@ -119,23 +119,23 @@ public class Model {
      * @return Whether the username is formatted correctly.
      */
     public static boolean isValid(String username) {
-        for (int i = 0; i < username.length() - 1; i++) {
+        for (int i = 0; i <= username.length() - 1; i++) {
             if (username.substring(i, i + 1).matches("[^A-Za-z0-9]")) {
                 return false;
             }
         }
         return true;
     }
-
-    /**
-     * Checks if the given username is new to the system.
-     *
-     * @param username The username to check the novelty of.
-     * @return Whether the username is new to the system.
-     */
-    public static boolean isNew(String username) {
-        return !(Model.exists(username));
-    }
+//
+//    /**
+//     * Checks if the given username is new to the system.
+//     *
+//     * @param username The username to check the novelty of.
+//     * @return Whether the username is new to the system.
+//     */
+//    public static boolean isNew(String username) {
+//        return !(Model.exists(username));
+//    }
 
     /**
      * Getter for whether a User exists in the system wih the given username.
@@ -213,6 +213,6 @@ public class Model {
      */
     static void addLog(String logInfo) {
         log.add(logInfo);
-        logDBHandler.addLog(log.indexOf(logInfo), logInfo);
+//        logDBHandler.addLog(log.indexOf(logInfo), logInfo);
     }
 }

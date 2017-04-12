@@ -26,21 +26,23 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:text="Make Source Report"
+            android:text="@string/make_source_report"
             android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:onClick="onMakeSourceReport"
             android:id="@+id/onMakeSourceReport"
             android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
             android:textSize="12sp" />
 
         <Button
-            android:text="Make Purity Report"
+            android:text="@string/make_purity_report"
             android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:id="@+id/makePurityReport"
             android:onClick="onMakePurityReport"
             android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
             android:textSize="12sp" />
 
     </LinearLayout>
@@ -51,27 +53,29 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:text="View Availability"
+            android:text="@string/view_availability"
             android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:onClick="onViewAvailability"
             android:id="@+id/viewAvailability"
             android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
             android:textSize="12sp" />
 
         <Button
-            android:text="Historical Reports"
+            android:text="@string/historical_reports"
             android:layout_height="wrap_content"
             android:id="@+id/historicalReports"
             android:onClick="historicalReports"
             android:layout_weight="1"
             android:layout_width="190dp"
+            style="?android:attr/buttonBarButtonStyle"
             android:textSize="12sp" />
 
     </LinearLayout>
 
     <Button
-        android:text="Manage Reports"
+        android:text="@string/manage_reports"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onManageReports"
@@ -84,26 +88,28 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:text="Administrate Users"
+            android:text="@string/administrate_users"
             android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:id="@+id/viewUsers"
             android:onClick="onManageUsers"
             android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
             android:textSize="12sp" />
 
         <Button
-            android:text="View Logs"
+            android:text="@string/view_logs"
             android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:id="@+id/viewLog"
             android:onClick="onViewLogs"
             android:layout_weight="1"
+            style="?android:attr/buttonBarButtonStyle"
             android:textSize="12sp" />
     </LinearLayout>
 
     <Button
-        android:text="Edit Account"
+        android:text="@string/edit_account"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/editAccount"
@@ -111,7 +117,7 @@
         android:textSize="12sp" />
 
     <Button
-        android:text="Logout"
+        android:text="@string/logout"
         android:layout_width="match_parent"
         android:id="@+id/logout"
         android:onClick="onLogoutPressed"

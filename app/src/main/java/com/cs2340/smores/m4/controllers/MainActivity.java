@@ -17,7 +17,10 @@ import com.cs2340.smores.m4.model.User;
 import com.cs2340.smores.m4.model.UserDBHandler;
 
 /**
- * Both the welcome page and the login screen of the App. Registration is also available.
+ * Both the welcome page and the login screen of the App.
+ * Registration is also available.
+ *
+ * @author Team 48
  */
 
 public class MainActivity extends AppCompatActivity {
@@ -31,8 +34,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Model.userDBHandler = new UserDBHandler(getApplicationContext());
-        Model.sourceReportDBHandler = new SourceReportDBHandler(getApplicationContext());
-        Model.purityReportDBHandler = new PurityReportDBHandler(getApplicationContext());
+        Model.sourceReportDBHandler = new SourceReportDBHandler(
+                getApplicationContext());
+        Model.purityReportDBHandler = new PurityReportDBHandler(
+                getApplicationContext());
         Model.logDBHandler = new LogDBHandler(getApplicationContext());
         Model.users = Model.userDBHandler.getUsers();
         Model.sourceReports = Model.sourceReportDBHandler.getQualityReports();
@@ -55,9 +60,10 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Attempts to log the User into the app when the Login Button is pressed.
-     * If the given username exist and a login has been attempted at least 3 times during
-     * the current login session, the User associated with the given username is locked out
-     * of login until an Admin returns the privilege to them.
+     * If the given username exist and a login has been attempted at least 3
+     * times during the current login session, the User associated with the
+     * given username is locked out of login until an Admin returns the
+     * privilege to them.
      *
      * @param view The default parameter for an onClick custom method.
      */
@@ -72,14 +78,17 @@ public class MainActivity extends AppCompatActivity {
             username.setText("");
             password.setText("");
             finish();
+        } else if ((givenUsername.length() == 0)
+                || (givenPassword.length() == 0)) {
+            new Error(view, getString(R.string.missing_info_login));
         } else if (updateBadLogins(givenUsername) >= 3) {
             User lockedUser = Model.getUser(givenUsername);
             if (lockedUser != null) {
                 lockedUser.lockOut();
             }
-            new Error(view, getResources().getString(R.string.locked_account));
+            new Error(view, getString(R.string.locked_account));
         } else {
-            new Error(view, getResources().getString(R.string.account_not_found));
+            new Error(view, getString(R.string.account_not_found));
         }
     }
 
@@ -96,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
      * Method to update the HashMap of usernames to keep bad login info.
      *
      * @param username The username being used as login info.
-     * @return The number of logins attempted with the given username if it exists in the system.
+     * @return The number of logins attempted with the given username if
+     * it exists in the system.
      */
     private int updateBadLogins(String username) {
         if (Model.exists(username)) {
